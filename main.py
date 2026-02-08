@@ -120,21 +120,21 @@ def crypto_top_gainer(universe="top_100"):
 # Command: /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Orbit online. Send a social link or use /pulse for crypto. Let's navigate the web."
+        "Welcome to Orbit, your gateway to the digital frontier. As a sophisticated assistant, I am here to navigate media retrieval from social platforms and synchronize you with the ever-evolving cryptocurrency radar. Transmit a link or invoke a command to commence our journey."
     )
 
 # Command: /scan
 async def scan(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id not in last_links or not last_links[user_id]:
-        await update.message.reply_text("No link to scan. Send one first.")
+        await update.message.reply_text("It appears no link has been detected in our recent trajectory. Please share one to initiate the scanning protocol.")
         return
     url = last_links[user_id]
     probe = media_probe(url)
     if not probe:
-        await update.message.reply_text("Couldn't scan this link. Platform not supported.")
+        await update.message.reply_text("The link could not be analyzed within our current capabilities. This platform may lie beyond our supported horizons.")
         return
-    msg = f"Scanned: {probe['platform']} • {probe['type']}\n\nChoose output:"
+    msg = f"Scanned trajectory: {probe['platform']} • {probe['type']}\n\nTo proceed with retrieval, select your desired output format:"
     keyboard = [
         [InlineKeyboardButton("MP4 • Choose", callback_data=f"mp4_choose_{url}")],
         [InlineKeyboardButton("MP3 • Best", callback_data=f"mp3_fetch_{url}_best")]
@@ -145,30 +145,30 @@ async def scan(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def grab(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id not in last_links:
-        await update.message.reply_text("No link detected. Send one.")
+        await update.message.reply_text("No link is currently orbiting in our session. Please provide one to activate download mode.")
         return
     url = last_links[user_id]
     probe = media_probe(url)
     if not probe:
-        await update.message.reply_text("Link not supported.")
+        await update.message.reply_text("This link is incompatible with our extraction protocols.")
         return
     keyboard = [
         [InlineKeyboardButton("MP4 • Choose", callback_data=f"mp4_choose_{url}")],
         [InlineKeyboardButton("MP3 • Best", callback_data=f"mp3_fetch_{url}_best")]
     ]
-    await update.message.reply_text("Grab mode. Pick format:", reply_markup=InlineKeyboardMarkup(keyboard))
+    await update.message.reply_text("Download mode engaged. Select a format to synchronize your retrieval:", reply_markup=InlineKeyboardMarkup(keyboard))
 
 # Command: /pulse
 async def pulse(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await update.message.reply_text("Send a symbol like: /pulse BTC")
+        await update.message.reply_text("Please specify a cryptocurrency symbol, such as BTC, to initiate the pulse analysis.")
         return
     symbol = context.args[0].upper()
     quote = crypto_quote(symbol)
     if not quote:
-        await update.message.reply_text("Couldn't fetch data. Check symbol.")
+        await update.message.reply_text("Data retrieval has encountered an anomaly. Please verify the symbol and attempt synchronization again.")
         return
-    msg = f"{symbol} • Live snapshot\n\nPrice: ${quote['price']:,.2f}\n24h Low/High: ${quote['low_24h']:,.2f} / ${quote['high_24h']:,.2f}\nMarket Cap: ${quote['mcap']:,.0f}\n24h Change: {quote['change_24h']:.2f}%\n\nSource: {quote['source']}"
+    msg = f"{symbol} • Real-time market pulse\n\nCurrent valuation: ${quote['price']:,.2f}\n24-hour fluctuation range: ${quote['low_24h']:,.2f} to ${quote['high_24h']:,.2f}\nMarket capitalization: ${quote['mcap']:,.0f}\n24-hour trajectory: {quote['change_24h']:.2f}%\n\nSourced from {quote['source']} at the present moment."
     keyboard = [
         [InlineKeyboardButton("Track • 15m", callback_data=f"track_15m_{symbol}")],
         [InlineKeyboardButton("Track • 1h", callback_data=f"track_1h_{symbol}")],
@@ -180,9 +180,9 @@ async def pulse(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def winner(update: Update, context: ContextTypes.DEFAULT_TYPE):
     gainer = crypto_top_gainer()
     if not gainer:
-        await update.message.reply_text("No data available.")
+        await update.message.reply_text("Market data is currently unavailable. Please retry as the horizon stabilizes.")
         return
-    await update.message.reply_text(f"Top gainer: {gainer['name']} ({gainer['symbol']}) • +{gainer['change_pct']:.2f}%")
+    await update.message.reply_text(f"The premier gainer in the 24-hour cycle is {gainer['name']} ({gainer['symbol']}), ascending by {gainer['change_pct']:.2f}%. An opportunity to explore further trajectories.")
 
 # Handle messages (auto-detect links)
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -196,18 +196,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             last_links[user_id] = url
             probe = media_probe(url)
             if probe:
-                msg = f"Link detected: {platform} • {probe['type']}\n\nChoose output:"
+                msg = f"Link detected within the digital expanse: {platform} • {probe['type']}\n\nTo optimize your retrieval, choose an output format:"
                 keyboard = [
                     [InlineKeyboardButton("MP4 • Choose", callback_data=f"mp4_choose_{url}")],
                     [InlineKeyboardButton("MP3 • Best", callback_data=f"mp3_fetch_{url}_best")]
                 ]
                 await update.message.reply_text(msg, reply_markup=InlineKeyboardMarkup(keyboard))
             else:
-                await update.message.reply_text("Link scanned, but couldn't probe formats.")
+                await update.message.reply_text("The link has been scanned, yet format extraction remains elusive.")
         else:
-            await update.message.reply_text("Platform not supported.")
+            await update.message.reply_text("This platform resides outside our navigational capabilities.")
     else:
-        await update.message.reply_text("No link found. Try /scan or send a URL.")
+        await update.message.reply_text("No link was identified in the transmission. Consider invoking /scan or sharing a URL to advance our mission.")
 
 # Handle inline button callbacks
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -220,38 +220,38 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if probe and probe["mp4_resolutions"]:
             keyboard = [[InlineKeyboardButton(f"MP4 • {res}", callback_data=f"mp4_fetch_{url}_{res}")] for res in probe["mp4_resolutions"]]
             keyboard.append([InlineKeyboardButton("Back", callback_data=f"back_to_choose_{url}")])
-            await query.edit_message_text("Pick resolution:", reply_markup=InlineKeyboardMarkup(keyboard))
+            await query.edit_message_text("Select a resolution to align with your vision:", reply_markup=InlineKeyboardMarkup(keyboard))
         else:
-            await query.edit_message_text("No MP4 options available.")
+            await query.edit_message_text("No MP4 resolutions are available within this trajectory.")
     elif data.startswith("mp4_fetch_"):
         parts = data.split("_", 3)
         url, res = parts[2], parts[3]
-        await query.edit_message_text("Fetching MP4...")
+        await query.edit_message_text("Initiating MP4 retrieval across the quantum network...")
         path = media_fetch(url, "mp4", resolution=res)
         if path:
             with open(path, "rb") as f:
                 await query.message.reply_video(video=f)
             os.remove(path)
         else:
-            await query.edit_message_text("Download failed. Try another resolution.")
+            await query.edit_message_text("Retrieval has failed. Consider exploring an alternative resolution to recalibrate.")
     elif data.startswith("mp3_fetch_"):
         url = data.split("_", 2)[2]
-        await query.edit_message_text("Fetching MP3...")
+        await query.edit_message_text("Synchronizing MP3 extraction from the auditory horizon...")
         path = media_fetch(url, "mp3")
         if path:
             with open(path, "rb") as f:
                 await query.message.reply_audio(audio=f)
             os.remove(path)
         else:
-            await query.edit_message_text("Download failed.")
+            await query.edit_message_text("Extraction anomaly detected. No further pathways available at this juncture.")
     elif data.startswith("track_"):
         parts = data.split("_", 2)
         cadence, symbol = parts[1], parts[2]
         # Simulate subscription (in real bot, store per user)
-        await query.edit_message_text(f"Tracking {symbol} every {cadence}. Updates will come.")
+        await query.edit_message_text(f"Tracking protocol activated for {symbol} at {cadence} intervals. Updates will manifest in due course.")
     elif data.startswith("alarm_"):
         symbol = data.split("_", 1)[1]
-        await query.edit_message_text(f"Alarm for {symbol}: Reply with 'above 50000' or 'below 40000'.")
+        await query.edit_message_text(f"Alarm configuration for {symbol}: Transmit a directive such as 'above 75000' or 'below 60000' to define the threshold.")
 
 # Main
 if __name__ == "__main__":
