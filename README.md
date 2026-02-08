@@ -1,68 +1,62 @@
 # Orbit Telegram Bot
 
-A sleek, futuristic Telegram assistant designed for seamless media downloads and crypto insights. Orbit detects social links (TikTok, YouTube, Facebook, X/Twitter, Instagram) and guides you through MP4/MP3 downloads with quality choices. It also provides real-time crypto quotes, top gainers, scheduled updates, and price alarms—pulled fresh from reliable sources.
+Orbit stands as a visionary Telegram companion, engineered to harmonize advanced media retrieval from leading social platforms with the pulsating dynamics of cryptocurrency intelligence. By detecting links from TikTok, YouTube, Facebook, X/Twitter, and Instagram, it empowers users to navigate MP4 downloads with precision resolutions or MP3 extractions at optimal bitrates, all while illuminating real-time crypto pulses, top gainers, automated updates, and intelligent alarms that synchronize with market trajectories.
 
 ## Features
-- **Media Fetch**: Auto-detects links and offers MP4 resolutions (e.g., 720p, 1080p) or MP3 bitrates (e.g., 192k, 320k). Supports TikTok no-watermark options where available.
-- **Crypto Radar**: Instant quotes (price, 24h low/high, market cap), top gainer tracking, 15m/1h updates, and customizable alarms for coins like BTC or ETH.
-- **UX Style**: Guided flows with inline buttons for quick choices. Short, confident responses with timestamps and sources.
-- **Safety**: Handles blocked platforms, cleans up files, and confirms actions to avoid surprises.
+- **Media Fetch**: Automatically discerns and deciphers social links, presenting MP4 resolutions (such as 720p or 1080p) alongside MP3 bitrates (ranging from 192k to 320k), with TikTok's no-watermark pathways prioritized for an unblemished experience.
+- **Crypto Radar**: Delivers instantaneous market snapshots, including valuations, 24-hour volatilities, capitalizations, and the pinnacle gainer across expansive universes, augmented by 15-minute or 1-hour update cadences and alarms attuned to price horizons for coins like BTC or ETH.
+- **UX Style**: Orchestrates interactions through elongated, mature dialogues infused with futuristic lexicon, guiding users via intuitive inline keyboards while upholding safety protocols and temporal accuracies.
+- **Safety**: Mitigates risks by articulating platform constraints, purging temporary files, and anchoring every insight with timestamps and authoritative sources.
 
 ## Setup (Step-by-Step for Newbies)
-1. **Get a Bot Token**:
-   - Open Telegram, search for @BotFather, and type `/newbot`.
-   - Follow prompts to name your bot (e.g., "Orbit Assistant") and get the token (save it safely—it's like a password).
+1. **Acquire a Bot Token**:
+   - Engage with @BotFather in Telegram via `/newbot`, assigning a name such as "Orbit Assistant" and a unique username culminating in `bot`, thereby securing the token for operational deployment.
 
-2. **Create GitHub Repo**:
-   - Go to [github.com](https://github.com), log in, and create a new repository named `orbit-telegram-bot`.
-   - Set visibility to Public. Skip README/.gitignore for now.
+2. **Establish GitHub Repository**:
+   - Venture to [github.com](https://github.com), initiate a new public repository entitled `orbit-telegram-bot`, and infuse it with a descriptive narrative.
 
-3. **Sync to Replit**:
-   - Go to [replit.com](https://replit.com), create an account, and click "Create" > "Import from GitHub."
-   - Paste your repo URL (e.g., `https://github.com/yourusername/orbit-telegram-bot.git`).
-   - In Replit's "Secrets" tab, add `BOT_TOKEN` as the key and your token as the value.
+3. **Synchronize with Replit**:
+   - Forge a Replit account, opt for "Import from GitHub," and input the repository URL, subsequently embedding the `BOT_TOKEN` within Replit's concealed Secrets.
 
-4. **Install and Run**:
-   - In Replit's shell (bottom panel), run: `pip install -r requirements.txt`
-   - Click "Run" to start the bot. It will poll for messages.
+4. **Install and Activate**:
+   - Execute `pip install -r requirements.txt` in the Replit console, then ignite the bot with "Run" to commence polling for transmissions.
 
-5. **Polish with BotFather**:
-   - In Telegram, go to @BotFather and run `/setcommands`.
-   - Select your bot and paste:
+5. **Refine via BotFather**:
+   - In Telegram, command @BotFather with `/setcommands` to embed:
      ```
-     scan - Detect and show formats for a link.
-     grab - Download media (choose format next).
-     pulse - Get crypto quote.
-     winner - Show top gainer.
+     scan - Detect and unveil formats for a link.
+     grab - Initiate download protocols (select format subsequently).
+     pulse - Unveil crypto valuation.
+     winner - Illuminate the paramount gainer.
      ```
-   - Run `/setdescription` and paste: "A futuristic assistant for media downloads and crypto radar."
-   - Run `/setabouttext` and paste: "Orbit: Media fetch + crypto pulse."
+   - Employ `/setdescription` to articulate: "A visionary assistant for media downloads and crypto radar."
+   - Utilize `/setabouttext` to proclaim: "Orbit: Media fetch + crypto pulse."
 
 ## Commands
-- `/start` — Welcome and overview.
-- `/scan` — Analyze the last link and show formats.
-- `/grab` — Start download mode for the last link.
-- `/pulse <symbol>` — Real-time crypto quote (e.g., /pulse BTC).
-- `/winner` — Top gainer in 24h.
-- Send a link directly — Auto-detects and offers options.
+- `/start` — Embark upon an introductory overview of our collaborative trajectory.
+- `/scan` — Analyze the most recent link and reveal its structural formats.
+- `/grab` — Activate download mode for the orbiting link.
+- `/pulse <symbol>` — Extract a real-time crypto pulse (e.g., /pulse BTC).
+- `/winner` — Spotlight the ascendant gainer within the 24-hour expanse.
+- Transmit a link directly — Triggers automatic detection and format selection paradigms.
 
 ## Usage Examples
-- **Media**: Paste a YouTube link. Orbit detects it and shows "MP4 • Choose" or "MP3 • Best" buttons. Pick a resolution/bitrate to download.
-- **Crypto**: Type `/pulse ETH` for a snapshot. Use buttons to set 15m updates or alarms (e.g., "above 3000").
-- **Errors**: If a site blocks downloads, Orbit explains limits and suggests alternatives.
+- **Media**: Disseminate a YouTube link, whereupon Orbit detects it and unveils "MP4 • Choose" or "MP3 • Best" interfaces, enabling resolution or bitrate alignment for seamless acquisition.
+- **Crypto**: Invoke `/pulse ETH` to receive a comprehensive snapshot, then leverage buttons to configure 15-minute surveillance or alarms attuned to thresholds like "above 3000".
+- **Anomalies**: Should downloads falter due to platform fortifications, Orbit elucidates limitations and advocates alternative explorations.
 
-## Data Sources & Limits
-- Media: Powered by yt-dlp (supports most public links; no login-required content).
-- Crypto: CoinGecko API (free tier: ~50 calls/minute; data updates every few minutes).
-- Timestamps: All data includes update times. Alarms/updates are per-user and stored in-memory (resets on restart).
+## Data Sources & Constraints
+- Media: Propelled by yt-dlp, accommodating accessible public content while respecting authentication barriers.
+- Crypto: Nourished by CoinGecko's API (complimentary tier: up to 50 inquiries per minute; data refreshed at quantum intervals).
+- Temporal Anchors: Every datum is imbued with update timestamps for unwavering fidelity.
 
 ## Troubleshooting
-- **Bot not responding?** Check Replit console for errors. Ensure BOT_TOKEN is correct.
-- **Download fails?** Platform may block bots—try a different link or resolution.
-- **Crypto data missing?** API rate-limit; wait and retry.
-- **Stuck?** Paste errors here or describe the issue—I'll help debug.
+- **Bot Inertia?** Scrutinize Replit's console for diagnostic signals; affirm `BOT_TOKEN` integrity.
+- **Retrieval Disruptions?** Platforms may erect defenses—experiment with divergent links or configurations.
+- **Crypto Void?** API saturation may prevail; await stabilization and reinitiate.
+- **Impediments?** Convey error transcripts or delineate the predicament for expeditious resolution.
 
-## Contributing
-Feel free to fork and enhance! For issues, open a GitHub issue.
+## Contributions
+Extend the horizon by forking and innovating. Report anomalies via GitHub issues.
 
-Data sourced responsibly. Use at your own risk.
+Insights sourced with precision. Engage responsibly.
